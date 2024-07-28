@@ -1,42 +1,32 @@
-import express from 'express'
-import cors from 'cors'
-const app = express()
+import express from 'express';
+import cors from 'cors';
+import cookieParser from 'cookie-parser';
 
-app.use(cors(
-    {
-        origin: 'http://example.com',
-        credentials: true
+const app = express();
 
-    }
-))
+app.use(cors({
+    origin: 'http://example.com',
+    credentials: true
+}));
 
-//this is for haldling data comming form form
-app.use (express.json({
+// Handling data coming from forms
+app.use(express.json({
     limit: '20kb',
     extended: true,
     parameterLimit: 50000
-}))
+}));
 
-// this is for haldling data comming from url
+// Handling data coming from URL
+app.use(express.urlencoded({ extended: true, limit: '10kb' }));
 
-app.use(express.urlencoded({ extended: true, limit: '10kb' }))
+// Serving static files
+app.use(express.static('public'));
 
+// Cookie parser middleware
+app.use(cookieParser('keyboard cat'));
 
-// this is for stroing static files
-app.use(express.static("public"))
+// Import and use router
+import router from './routes/user.route.js';
+app.use('/user', router);
 
-
-
-// this is for performing crud operation in users cookie
-app.use(cookieparser({
-
-    secret: 'keyboard cat',
-    resave: false,
-    saveUninitialized: true
-}))
-
-
-
-
-
-
+export { app };
