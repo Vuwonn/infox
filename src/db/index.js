@@ -1,16 +1,15 @@
 import mongoose from "mongoose";
 
-const uri = `${process.env.MONGODB_URI}/${process.env.MONGODB_DB}`;
+
 
  const connectDB = (async () => {
     try {
-        await mongoose.connect(uri, {
-            useNewUrlParser: true,
-            useUnifiedTopology: true,
-        });
+        const uri = `${process.env.MONGO_URI}/${process.env.MONGODB_DB}`;
+        await mongoose.connect(uri);
         console.log("Connected to MongoDB");
     } catch (error) {
         console.error(error);
+        process.exit(1);
     }
 })
 
