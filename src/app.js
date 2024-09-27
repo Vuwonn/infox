@@ -5,28 +5,26 @@ import cookieParser from 'cookie-parser';
 const app = express();
 
 app.use(cors({
-    origin: 'http://example.com',
-    credentials: true
+    origin: 'http://localhost:5173',
+    credentials: true,
+    methods: ['GET', 'POST', 'DELETE', 'PATCH', 'PUT'],
 }));
 
-// Handling data coming from forms
 app.use(express.json({
     limit: '20kb',
     extended: true,
     parameterLimit: 50000
 }));
 
-// Handling data coming from URL
 app.use(express.urlencoded({ extended: true, limit: '10kb' }));
 
-// Serving static files
 app.use(express.static('public'));
 
-// Cookie parser middleware
-app.use(cookieParser('keyboard cat'));
 
-// Import and use router
+app.use(cookieParser('keyboard'));
+
+
 import router from './routes/user.route.js';
-app.use('/user', router);
+app.use('/api/v1/clientBasicRegistration', router);
 
 export { app };

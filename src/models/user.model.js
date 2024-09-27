@@ -1,25 +1,50 @@
 import mongoose from "mongoose";
 
-const userSchema = new mongoose.Schema({
-    name: {
-        type: String,
-        required: true,
-        trim: true,
-        maxlength: 32,
-        minlength: 3,
-        unique: true,
-        lowercase: true,
-        index: true
+const contactSchema = new mongoose.Schema(
+  {
+    alternatePhone: {
+      type: String,
+      trim: true,
+      maxlength: 15,
     },
-    email: {
-        type: String,
-        required: true,
-        trim: true,
-        unique: true
+    company: {
+      type: String,
+      trim: true,
+      required: true,
     },
-    password: String
-});
+    firstName: {
+      type: String,
+      trim: true,
+      required: true,
+    },
+    lastName: {
+      type: String,
+      trim: true,
+      required: true,
+    },
+    orgName: {
+      type: String,
+      trim: true,
+      required: true,
+    },
+    phone: {
+      type: String,
+      trim: true,
+      required: true,
+      maxlength: 15,
+    },
+    province: {
+      type: String,
+      trim: true,
+      required: true,
+    },
+    software: {
+      type: String,
+      trim: true,
+      required: true,
+    },
+  },
+  { timestamps: true }
+);
 
-
-export default mongoose.model("User", userSchema);
-
+export default mongoose.model("Contact", contactSchema);
